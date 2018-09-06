@@ -118,6 +118,7 @@ func (r *Result) Infos() ([]*Info, error) {
 	}
 
 	infos := []*Info{}
+	//visit 在selector.Visit中实现http请求
 	err := r.visitor.Visit(func(info *Info, err error) error {
 		if err != nil {
 			return err

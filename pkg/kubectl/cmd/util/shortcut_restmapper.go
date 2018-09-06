@@ -108,6 +108,7 @@ func (e shortcutExpander) getShortcutMappings() ([]kubectl.ResourceShortcuts, er
 // Lastly we will return resource unmodified.
 func (e shortcutExpander) expandResourceShortcut(resource schema.GroupVersionResource) schema.GroupVersionResource {
 	// get the shortcut mappings and return on first match.
+	//获取所有api资源信息
 	if resources, err := e.getShortcutMappings(); err == nil {
 		for _, item := range resources {
 			if len(resource.Group) != 0 && resource.Group != item.ShortForm.Group {
@@ -127,6 +128,7 @@ func (e shortcutExpander) expandResourceShortcut(resource schema.GroupVersionRes
 			if !strings.HasPrefix(item.ShortForm.Group, resource.Group) {
 				continue
 			}
+			//命令的缩写匹配到，输入命令
 			if resource.Resource == item.ShortForm.Resource {
 				resource.Resource = item.LongForm.Resource
 				return resource

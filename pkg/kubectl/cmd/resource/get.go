@@ -144,8 +144,11 @@ func NewCmdGet(f cmdutil.Factory, out io.Writer, errOut io.Writer) *cobra.Comman
 		Long:    getLong + "\n\n" + cmdutil.ValidResourceTypeList(f),
 		Example: getExample,
 		Run: func(cmd *cobra.Command, args []string) {
+			//参数补全，一些默认参数
 			cmdutil.CheckErr(options.Complete(f, cmd, args))
+			//参数合法性
 			cmdutil.CheckErr(options.Validate(cmd))
+			//执行
 			cmdutil.CheckErr(options.Run(f, cmd, args))
 		},
 		SuggestFor: []string{"list", "ps"},
@@ -272,6 +275,7 @@ func (options *GetOptions) Run(f cmdutil.Factory, cmd *cobra.Command, args []str
 
 	allErrs := []error{}
 	errs := sets.NewString()
+	//这里开始进入http api调用
 	infos, err := r.Infos()
 	if err != nil {
 		allErrs = append(allErrs, err)

@@ -599,17 +599,19 @@ func (b *Builder) SingleResourceType() *Builder {
 func (b *Builder) mappingFor(resourceArg string) (*meta.RESTMapping, error) {
 	fullySpecifiedGVR, groupResource := schema.ParseResourceArg(resourceArg)
 	gvk := schema.GroupVersionKind{}
+	// fmt.Println(fullySpecifiedGVR, groupResource)
 	if fullySpecifiedGVR != nil {
 		gvk, _ = b.mapper.KindFor(*fullySpecifiedGVR)
 	}
 	if gvk.Empty() {
 		var err error
+		//匹配到
+		//KindFor->lazy.go .KindFor  作用：将匹配带正确的resource，以及缩写的匹配  例如  po 也能匹配到（通过api接口拉取）
 		gvk, err = b.mapper.KindFor(groupResource.WithVersion(""))
 		if err != nil {
 			return nil, err
 		}
 	}
-
 	return b.mapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 }
 
@@ -619,7 +621,9 @@ func (b *Builder) resourceMappings() ([]*meta.RESTMapping, error) {
 	}
 	mappings := []*meta.RESTMapping{}
 	for _, r := range b.resources {
+		// fmt.Println(r)  //po
 		mapping, err := b.mappingFor(r)
+		// pretty.Println(mapping)
 		if err != nil {
 			return nil, err
 		}

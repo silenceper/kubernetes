@@ -226,6 +226,7 @@ func NewKubectlCommand(f cmdutil.Factory, in io.Reader, out, err io.Writer) *cob
 		BashCompletionFunction: bashCompletionFunc,
 	}
 
+	//设置 --cache-dir 参数
 	f.BindFlags(cmds.PersistentFlags())
 	f.BindExternalFlags(cmds.PersistentFlags())
 
