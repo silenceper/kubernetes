@@ -34,6 +34,7 @@ Any salient changes here will need to be manually reflected in that file.
 
 // Run runs the kubectl program (creates and executes a new cobra command).
 func Run() error {
+	//log 输出改为glog
 	logs.InitLogs()
 	defer logs.FlushLogs()
 
