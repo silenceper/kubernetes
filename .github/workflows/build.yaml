@@ -18,4 +18,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build
-        run: KUBE_BUILD_PLATFORMS=linux/amd64 KUBE_BUILD_CONFORMANCE=n KUBE_BUILD_HYPERKUBE=n make quick-release-images GOFLAGS=-v GOGCFLAGS="-N -l"
+        run: KUBE_DOCKER_IMAGE_TAG=v1.13.11-fix-76849 KUBE_DOCKER_REGISTRY=silenceper KUBE_BUILD_PLATFORMS=linux/amd64 KUBE_BUILD_CONFORMANCE=n KUBE_BUILD_HYPERKUBE=n make quick-release-images GOFLAGS=-v GOGCFLAGS="-N -l"

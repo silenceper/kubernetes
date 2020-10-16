@@ -387,6 +387,8 @@ EOF
             kube::log::status "Tagging docker image ${docker_image_tag} as ${release_docker_image_tag}"
             "${DOCKER[@]}" rmi "${release_docker_image_tag}" 2>/dev/null || true
             "${DOCKER[@]}" tag "${docker_image_tag}" "${release_docker_image_tag}" 2>/dev/null
+            kube::log::status "Push docker image ${release_docker_image_tag}"
+            "${DOCKER[@]}" push "${release_docker_image_tag}" 2>/dev/null
           fi
         else
           # not a release
