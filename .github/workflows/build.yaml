@@ -11,9 +11,7 @@ jobs:
     #container: kedacore/build-tools:v2
     steps:
       - name: Check out code
-        uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
